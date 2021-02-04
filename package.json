@@ -1,0 +1,28 @@
+{
+  "name": "filebit-crypto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "crypto.js",
+  "scripts": {
+    "test": "babel-node test/index.js && exit 0",
+    "doc": "jsdoc nodejs/ -r -R nodejs/README.md -P package.json -d documentation/nodejs/",
+    "build": "npm run build-web && npm run build-web-module && npm run build-legacy && npm run build-legacy-module",
+    "build-web": "webpack-cli --config webpack.js",
+    "build-web-module": "webpack-cli --config webpack.module.js",
+    "build-legacy": "webpack-cli --config webpack.legacy.js",
+    "build-legacy-module": "webpack-cli --config webpack.legacy.module.js"
+  },
+  "author": "filebit.cc",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "alsatian": "^3.2.1",
+    "babel-node": "^0.0.1-security",
+    "tap-bark": "^2.3.1",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "@babel/plugin-proposal-decorators": "^7.12.13",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.13",
+    "@babel/preset-flow": "^7.12.13",
+    "jsdoc": "^3.6.6"
+  }
+}
