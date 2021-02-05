@@ -30,11 +30,11 @@ module.exports.encrypt = (data, key, iv) => {
     utils.assert_uint8(key, 'key needs to be an uint8array');
     utils.assert_uint8(iv, 'iv needs to be an uint8array');
 
-    let keyimported = await window.crypto.subtle.importKey("raw", new Uint8Array(key), {
+    let keyimported = await crypto.subtle.importKey("raw", new Uint8Array(key), {
       name: "AES-CBC"
     }, false, ["encrypt"]);
 
-    let encrypted = await window.crypto.subtle.encrypt({
+    let encrypted = await crypto.subtle.encrypt({
       name: "AES-CBC",
       iv: new Uint8Array(iv)
     }, keyimported, data);
@@ -54,11 +54,11 @@ module.exports.decrypt = (data, key, iv) => {
     key = new Uint8Array(key);
     iv = new Uint8Array(iv);
 
-    let keyimported = await window.crypto.subtle.importKey("raw", new Uint8Array(key), {
+    let keyimported = await crypto.subtle.importKey("raw", new Uint8Array(key), {
       name: "AES-CBC"
     }, false, ["decrypt"]);
 
-    let dec = await window.crypto.subtle.decrypt({
+    let dec = await crypto.subtle.decrypt({
       name: "AES-CBC",
       iv,
     }, keyimported, new Uint8Array(data));
