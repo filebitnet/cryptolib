@@ -5,3 +5,5 @@ nodejs/
 documentation/
 test/nodejs.js
 .DS_Store
+.npmignore
+publish.sh

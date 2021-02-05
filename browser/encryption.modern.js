@@ -15,10 +15,11 @@ module.exports.nameKeySizeHash = async(name, size, key) => {
   utils.assert_undef(size, 'size is undefined');
   utils.assert_undef(key, 'key is undefined');
   utils.assert_uint8(key, 'key is not an uint8array');
+  utils.assert_str(name, 'name is not a string');
 
   const key64 = base64.encode(key);
-  const nkh = await sha256(utils.str_to_uint8(key + name + key));
-  const encr = `{n:${name}:s${size}:k${key}`;
+  const nkh = await sha256(utils.str_to_uint8(key64 + name + key64));
+  const encr = `{n:${name}:s${size}:k${key64}`;
   const sha = await sha256(utils.str_to_uint8(encr + utils.uint8_to_hex(nkh, true)));
   return utils.uint8_to_hex(sha, true); //return lowercase
 }
