@@ -7,3 +7,4 @@ test/nodejs.js
 .DS_Store
 .npmignore
 publish.sh
+deploy.sh

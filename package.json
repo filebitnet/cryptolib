@@ -1,6 +1,6 @@
 {
   "name": "filebit-crypto",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "",
   "main": "crypto.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "build-legacy": "webpack-cli --config webpack.legacy.js",
     "build-legacy-module": "webpack-cli --config webpack.legacy.module.js",
     "bump": "bump",
-    "npm-publish": "npm run bump && bash ./publish.sh"
+    "deploy": "npm run bump && npm run build && bash ./deploy.sh && npm run npm-publish",
+    "npm-publish": "bash ./publish.sh"
   },
   "author": "filebit.cc",
   "license": "ISC",
