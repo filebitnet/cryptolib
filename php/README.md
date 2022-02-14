@@ -1,3 +1,23 @@
+## Check Filebit URL & Get Parts
+```php
+require_once "filebit.php";
+
+$URL = 'https://filebit.net/f/qknI9LX#Ac1A3HJ13aBRn66XHnkktQNlOK1dxItiRqnkAovV82uU';
+
+var_dump(\Filebit\Utils\isValidURL($URL)); // => true
+
+var_dump(\Filebit\Utils\getParts($URL));
+/*
+array(2) {
+  ["id"]=>
+  string(7) "qknI9LX"
+  ["key"]=>
+  string(44) "Ac1A3HJ13aBRn66XHnkktQNlOK1dxItiRqnkAovV82uU"
+}
+*/
+```
+
+
 ## Get Upload Server
 ```php
 require_once "filebit.php";
@@ -33,13 +53,13 @@ $FilesArray = array(
 	'AfAiPEM' => 'AbotIF8zJdU44b6cF_9f9kXIir_U5AmODfRiWE9xDo2U',
 );
 
-$Response = $CApi->Call('file/multiinfo.json', array('files' => array_keys($FilesArray)));
+$Response = $CApi->Call('storage/multiinfo.json', array('files' => array_keys($FilesArray)));
 
 foreach ((array) $Response as $id => $data) {
 	$Key = $FilesArray[$id];
 	$DecryptedKey = $CCrypto->unmergeKeyIv(Filebit\CBase64::decode($Key));
 	$DecryptedName = $CCrypto->decrypt(Filebit\CBase64::decode($data->name), Filebit\CBase64::decode($DecryptedKey['key']), Filebit\CBase64::decode($DecryptedKey['iv']));
-	echo $DecryptedName . " Filesize: " . Filebit\Utils\formatSize($data->size) . PHP_EOL;
+	echo '['.$data->state.'] '.$DecryptedName . " Filesize: " . Filebit\Utils\formatSize($data->size) . PHP_EOL;
 }
 ```
 
