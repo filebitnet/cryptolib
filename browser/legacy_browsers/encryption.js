@@ -69,7 +69,7 @@ module.exports.decrypt = (data, key, iv) => {
       decrypted2 = AES.AES_CBC.decrypt(encrypted, key, false, iv);
     } catch (e) {}
     if (decrypted == undefined && decrypted2 != undefined) {
-      return decrypted2;
+      return resolve(new Uint8Array(decrypted2));
     }
     //console.log("foo:", decrypted, decrypted2)
     return resolve(new Uint8Array(decrypted));

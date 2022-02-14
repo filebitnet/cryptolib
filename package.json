@@ -1,6 +1,6 @@
 {
   "name": "filebit-crypto",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "crypto.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "deploy": "npm run bump && npm run build && bash ./deploy.sh && npm run npm-publish",
     "npm-publish": "bash ./publish.sh"
   },
-  "author": "filebit.cc",
+  "author": "filebit.ch",
   "license": "ISC",
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.12.13",
