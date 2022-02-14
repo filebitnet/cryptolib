@@ -31,7 +31,9 @@ class CApi {
 		\curl_setopt($ch, \CURLOPT_HEADER, false);
 		\curl_setopt($ch, \CURLOPT_URL, $url);
 		\curl_setopt($ch, \CURLOPT_POST, true);
-		\curl_setopt($ch, \CURLOPT_POSTFIELDS, $query);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+		//\curl_setopt($ch, \CURLOPT_POSTFIELDS, $query);
 		\curl_setopt($ch, \CURLOPT_USERAGENT, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3831.6 Safari/537.36");
 		$response = \curl_exec($ch);
 		\curl_close($ch);
