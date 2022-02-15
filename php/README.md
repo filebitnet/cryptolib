@@ -63,8 +63,29 @@ foreach ((array) $Response as $id => $data) {
 }
 ```
 
+## File Upload
+```php
+include "filebit.php";
 
-## FileUpload
-```bash
-php upload.php PATH_TO_FILE
+$File2Upload = 'test.txt';
+
+$UploadHandle = new \Filebit\CUpload($File2Upload);
+$UploadHandle->setProgress(true);
+$UploadHandle->upload();
+
+echo "Done: " . $UploadHandle->getLink() . PHP_EOL;
+```
+
+## File Download
+```php
+include "filebit.php";
+
+$URL = 'https://filebit.net/f/…#…';
+$URLParts = \Filebit\Utils\getParts($URL);
+
+$DownloadHandle = new \Filebit\CDownload($URLParts['id'], $URLParts['key']);
+$DownloadHandle->setStoragePath('./test.txt');
+$DownloadHandle->setProgress(true);
+$DownloadHandle->setDebug(false);
+$DownloadHandle->download();
 ```
