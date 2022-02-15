@@ -3,10 +3,10 @@ namespace Filebit;
 
 class CFile {
 	private $isOpen = false;
-	function open($filepath, $handle = 'r') {
+	function open($filepath, $mode = 'r') {
 		$this->isOpen = true;
 		$this->path = $filepath;
-		$this->handle = fopen($this->path, $handle);
+		$this->handle = fopen($this->path, $mode);
 	}
 
 	function close() {
