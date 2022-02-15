@@ -9,3 +9,4 @@ require_once "includes/api.php";
 require_once "includes/crypto.php";
 require_once "includes/file.php";
 require_once "includes/upload.php";
+require_once "includes/download.php";

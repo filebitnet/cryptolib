@@ -3,10 +3,10 @@ namespace Filebit;
 
 class CFile {
 	private $isOpen = false;
-	function open($filepath) {
+	function open($filepath, $handle = 'r') {
 		$this->isOpen = true;
 		$this->path = $filepath;
-		$this->handle = fopen($this->path, 'r');
+		$this->handle = fopen($this->path, $handle);
 	}
 
 	function close() {
@@ -24,10 +24,19 @@ class CFile {
 		}
 		$length = $offsetB - $offsetA;
 		fseek($this->handle, $offsetA);
-		//echo "Seek: " . $offsetA . PHP_EOL;
-		//echo "Position of ftell: " . ftell($this->handle) . PHP_EOL;
 		$buf = fread($this->handle, $length);
 		fseek($this->handle, 0);
 		return $buf;
 	}
+
+	function write($start, $buf) {
+		if (!$this->isOpen) {
+			throw new \Exception('no file open for writing');
+		}
+		fseek($this->handle, $start);
+		fwrite($this->handle, $buf);
+		fseek($this->handle, 0);
+		return true;
+	}
+
 }
