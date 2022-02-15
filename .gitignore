@@ -8,4 +8,3 @@ test/nodejs.js
 publish.sh
 deploy.sh
 php/test*
-php/download*
