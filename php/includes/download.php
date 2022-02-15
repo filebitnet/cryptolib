@@ -204,7 +204,7 @@ class CDownload {
 	}
 
 	public function setProgress($state) {
-		$this->progress = $state;
+		$this->_progress = $state;
 	}
 
 	public function setDebug($state) {
