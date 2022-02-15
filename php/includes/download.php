@@ -108,7 +108,7 @@ class CDownload {
 
 	// this is a helper function for the progress bar, it get's called by curl
 	function __progress($resource, $download_size, $downloaded, $upload_size, $uploaded) {
-		if (!$this->progress) {
+		if (!$this->_progress) {
 			return;
 		}
 		$bytesNow = ($downloaded - $this->_lastSize);
