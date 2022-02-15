@@ -6,8 +6,6 @@ class CApi {
 	private $ssl = true;
 	private $ua = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3831.6 Safari/537.36';
 
-	function __constructor() {}
-
 	function getURL() {
 		return $this->fqdn;
 	}
@@ -53,10 +51,8 @@ class CApi {
 	}
 
 	public function upload($server, $upload_id, $chunk_id, $offset, $buffer, $parent) {
-
 		$tempfile = tempnam("/tmp", "dat");
 		file_put_contents($tempfile, $buffer);
-
 		$cf = new \CURLFile($tempfile);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, (($this->ssl) ? 'https' : 'http') . '://' . $server . '/storage/bucket/' . $upload_id . '/add/' . $chunk_id . '/' . $offset[0] . '-' . $offset[1]);
@@ -68,9 +64,7 @@ class CApi {
 		curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($parent, '__progress'));
 		$result = curl_exec($ch);
 		curl_close($ch);
-
 		unlink($tempfile);
-
 		return json_decode($result);
 
 	}

@@ -81,7 +81,6 @@ class CUpload {
 		ksort($this->crcMap);
 		$sorted = array_values($this->crcMap);
 		$sha256 = \Filebit\CSha256::pack(implode(",", $sorted));
-
 		$Request = array(
 			'uploadid' => $upload_id,
 			'server' => $server,
@@ -89,14 +88,11 @@ class CUpload {
 			'chunks' => count($this->crcMap),
 		);
 		$Response = $this->api->Call('storage/bucket/finalize.json', $Request);
-
 		if (isset($Response->error)) {
 			throw new \Exception($Response->error);
 		}
-
 		$id = $Response->id;
 		$hash = \Filebit\CBase64::encode($this->crypto->mergeKeyIv($this->key, $this->iv));
-
 		$this->fileid = $id;
 		$this->hash = $hash;
 		$this->upload_completed = true;
@@ -151,5 +147,4 @@ class CUpload {
 		}
 		return $this->api->getURL() . 'f/' . $this->fileid . '#' . $this->hash;
 	}
-
 }

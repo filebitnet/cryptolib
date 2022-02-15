@@ -37,9 +37,7 @@ class CDownload {
 		if ($this->_st) {
 			$Request['st'] = $this->_st;
 		}
-		//var_export($Request);
 		$Response = $this->api->Call('storage/bucket/info.json', $Request);
-		//var_export($Response);
 		if (isset($Response->error)) {
 			throw new \Exception('file not found');
 		}
@@ -49,21 +47,17 @@ class CDownload {
 		$this->_filename = $this->crypto->decrypt(\Filebit\CBase64::decode($Response->filename), $this->_key, $this->_iv);
 		$this->_filesize = $Response->filesize;
 		$this->_filesizeFormatted = \Filebit\Utils\formatSize($Response->filesize);
-
 		$this->slot = $Response->slot;
-
 		if (!$this->slot->isAvailable) {
 			throw new \Exception('filebit servers full, currently no free download available');
 		}
 		$this->_slotTicket = $this->slot->ticket;
 		$this->_waitingTime = (int) $this->slot->wait;
-
 		if (isset($Response->st) && $this->_st) {
 			if ($Response->st->state != 'ok') {
 				$this->_st = false;
 			}
 		}
-
 		$this->_doWaitingTime();
 	}
 
@@ -140,7 +134,6 @@ class CDownload {
 			}
 			return false;
 		}
-		//@TODO, check if this is a final chunk and not an error, like slot full
 		$decrypted = $this->crypto->decrypt($buf, $this->_key, $this->_iv);
 		if (strlen($decrypted) != $length) {
 			throw new \Exception('Invalid buflength received');

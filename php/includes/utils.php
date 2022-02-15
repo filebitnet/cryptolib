@@ -17,6 +17,7 @@ function formatSize($bytes) {
 	}
 	return round($bytes, 2) . ' ' . $units[$u];
 }
+
 function getRegex() {
 	return '/https?:\/\/(www\.|.*\.)?(?P<tld>filebit\.ch|filebit\.net|filebit\.org)\/f\/(?P<id>([a-zA-Z0-9]+){6,9})((\?|&)(.+?))?#(?P<key>([a-zA-Z0-9-_]+){16,25})$/';
 }

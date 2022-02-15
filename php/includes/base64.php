@@ -8,6 +8,7 @@ class CBase64 {
 		$data = str_replace('=', '', $data);
 		return $data;
 	}
+
 	public static function decode($data) {
 		$data = str_replace('-', '+', $data);
 		$data = str_replace('_', '/', $data);

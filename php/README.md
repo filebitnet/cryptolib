@@ -1,11 +1,8 @@
 ## Check Filebit URL & Get Parts
 ```php
 require_once "filebit.php";
-
 $URL = 'https://filebit.net/f/qknI9LX#Ac1A3HJ13aBRn66XHnkktQNlOK1dxItiRqnkAovV82uU';
-
 var_dump(\Filebit\Utils\isValidURL($URL)); // => true
-
 var_dump(\Filebit\Utils\getParts($URL));
 /*
 array(2) {

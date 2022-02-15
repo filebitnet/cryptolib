@@ -2,16 +2,12 @@
 namespace Filebit\Crypto;
 
 class CKeyGen {
-	function __constructor() {}
-
 	function Get($bits = 128) {
 		// by dividing / 8 we transform out bits in bytes which are required
 		return random_bytes($bits / 8);
 	}
 }
 class CCrypto {
-	function __constructor() {}
-
 	function pack($arr) {
 		$out = '';
 		foreach ($arr as $c) {
@@ -21,13 +17,6 @@ class CCrypto {
 	}
 
 	function nksh(string $name, int $size, string $key) {
-		/*
-					  const key64 = base64.encode(key);
-			  const nkh = await sha256(Buffer.from(key64 + name + key64));
-			  const encr = `{n:${name}:s${size}:k${key64}}`;
-			  const sha = await sha256(Buffer.from(encr + nkh.toString('hex')));
-			  return sha.toString('hex') //return lowercase
-		*/
 		$key64 = \Filebit\CBase64::encode($key);
 		$nkh = \Filebit\CSha256::pack($key64 . $name . $key64);
 		$encr = "{n:$name:s$size:k$key64}";
@@ -55,7 +44,6 @@ class CCrypto {
 		}
 		$version = $buf[0];
 		$keys = array_slice($buf, 1);
-
 		$_key = array();
 		$_iv = array();
 		for ($i = 0; $i < count($keys); ++$i) {
@@ -76,6 +64,7 @@ class CCrypto {
 	function decrypt($data, $key, $iv) {
 		return openssl_decrypt($data, "aes-128-cbc", $key, 1, $iv);
 	}
+
 	function encrypt($data, $key, $iv) {
 		return openssl_encrypt($data, "aes-128-cbc", $key, 1, $iv);
 	}
