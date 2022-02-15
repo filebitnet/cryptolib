@@ -12,7 +12,7 @@ function formatSize($bytes) {
 		++$u;
 	} while (abs($bytes) >= $tresh && $u < (count($units) - 1));
 	$temp = explode(".", $bytes);
-	if ($temp[1] == 0) {
+	if (!isset($temp[1]) || $temp[1] == 0) {
 		return $temp[0] . ' ' . $units[$u];
 	}
 	return round($bytes, 2) . ' ' . $units[$u];
