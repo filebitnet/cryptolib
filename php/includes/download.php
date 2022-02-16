@@ -49,7 +49,8 @@ class CDownload {
 		$this->_filesizeFormatted = \Filebit\Utils\formatSize($Response->filesize);
 		$this->slot = $Response->slot;
 		if (!$this->slot->isAvailable) {
-			throw new \Exception('filebit servers full, currently no free download available');
+			$error = (isset($this->slot->error)) ? $this->slot->error : 'filebit servers full, currently no free download available';
+			throw new \Exception($error);
 		}
 		$this->_slotTicket = $this->slot->ticket;
 		$this->_waitingTime = (int) $this->slot->wait;

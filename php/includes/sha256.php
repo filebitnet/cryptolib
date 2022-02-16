@@ -2,11 +2,11 @@
 namespace Filebit;
 
 class CSha256 {
-	function pack($data) {
+	public static function pack($data) {
 		return hash('sha256', $data);
 	}
 
-	function packFile($path) {
+	public static function packFile($path) {
 		return hash_file('sha256', $path);
 	}
 }

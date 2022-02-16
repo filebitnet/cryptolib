@@ -7,4 +7,4 @@ $UploadHandle = new \Filebit\CUpload($File2Upload);
 $UploadHandle->setProgress(true);
 $UploadHandle->upload();
 
-echo "Done: " . $UploadHandle->getLink() . PHP_EOL;
+echo "Done: " . $UploadHandle->getLink() . " Admincode: ".$UploadHandle->getAdminCode(). PHP_EOL;

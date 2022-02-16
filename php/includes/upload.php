@@ -1,6 +1,27 @@
 <?php
 namespace Filebit;
 class CUpload {
+	private $path;
+	private $handle;
+	private $crypto;
+	private $api;
+	private $key;
+	private $iv;
+	private $_filenameRaw;
+	private $filename;
+	private $filesize;
+	private $filesizeFormatted;
+	private $nksh;
+	private $hash;
+	private $upload_id;
+	private $slices;
+	private $servers;
+	private $crcMap;
+	private $upload_completed;
+	private $fileid;
+	private $admincode;
+	private $_uploaded;
+	private $progress;
 	function __construct($path, $filename = false) {
 		$this->path = $path;
 		$this->handle = new \Filebit\CFile;
@@ -22,7 +43,6 @@ class CUpload {
 		$this->crcMap = array();
 		$this->upload_completed = false;
 		$this->fileid = null;
-		$this->hash = null;
 		$this->_uploaded = 0;
 		$this->progress = false;
 	}
@@ -77,7 +97,7 @@ class CUpload {
 		return $Response->id;
 	}
 
-	function _storeUploadRequest($server, $upload_id) {
+	private function _storeUploadRequest($server, $upload_id) {
 		ksort($this->crcMap);
 		$sorted = array_values($this->crcMap);
 		$sha256 = \Filebit\CSha256::pack(implode(",", $sorted));
@@ -95,6 +115,7 @@ class CUpload {
 		$hash = \Filebit\CBase64::encode($this->crypto->mergeKeyIv($this->key, $this->iv));
 		$this->fileid = $id;
 		$this->hash = $hash;
+		$this->admincode = $Response->admincode;
 		$this->upload_completed = true;
 
 		return true;
@@ -113,7 +134,7 @@ class CUpload {
 		return 0;
 	}
 
-	function upload($progress = true) {
+	public function upload($progress = true) {
 		$len = 0;
 		if ($this->progress) {
 			$this->progressBar(0, $this->filesize);
@@ -141,10 +162,17 @@ class CUpload {
 		$this->_storeUploadRequest($Server, $this->upload_id);
 	}
 
-	function getLink() {
+	public function getLink() {
 		if (!$this->upload_completed) {
 			throw new \Exception('upload not yet finished');
 		}
 		return $this->api->getURL() . 'f/' . $this->fileid . '#' . $this->hash;
+	}
+
+	public function getAdminCode() {
+		if (!$this->upload_completed) {
+			throw new \Exception('upload not yet finished');
+		}
+		return $this->admincode;
 	}
 }
